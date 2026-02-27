@@ -66,40 +66,7 @@ function App() {
         </tbody>
       </table>
 
-      <h2>to be removed soon...</h2>
-
-
-      <ul>
-        {spells.map((spell) => (
-          <li>
-            <strong>
-              Spell: {spell.name}
-            </strong>
-            <br />
-            <strong>
-              Level: {spell.level}
-            </strong>
-            <br />
-            <strong>
-              School: {spell.school}
-            </strong>
-            <br />
-            <strong>
-              Source: {spell.source}
-            </strong>
-            <br />
-            <strong>
-              Casting TIme: {spell.castingTime}
-            </strong>
-            <br />
-          </li>
-        ))}
-      </ul>
-
     </div>
-
-
-
 
   );
 

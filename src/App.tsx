@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import { fetchSpells } from './spellService';
+import type { Spell } from './model/spell';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [spells, setSpells] = useState<Spell[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<String | null>(null);
+
+  useEffect(() => {
+    async function loadPage() {
+      try{
+        const data = await fetchSpells();
+        setSpells(data);
+      }catch(err: any){
+        setError(err.message ?? "Failed to load spells data");
+      }finally{
+        setLoading(false);
+      }
+    }
+
+    loadPage();
+  
+  }, []);
+
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Spellbook</h1>
+      <ul>
+        {spells.map((spell) => (
+          <li>
+            <strong>
+              Spell: {spell.name}
+            </strong>
+            <br />
+            <strong>
+              Level: {spell.level}
+            </strong>
+            <br />
+            <strong>
+              School: {spell.school}
+            </strong>
+            <br />
+            <strong>
+              Source: {spell.source}
+            </strong>
+            <br />
+            <strong>
+              Casting TIme: {spell.castingTime}
+            </strong>
+            <br />
+          </li>
+        ))}
+      </ul>
+
+    </div>
+
+
+
+
+  );
+
 }
 
 export default App

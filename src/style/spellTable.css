@@ -9,9 +9,15 @@
     margin-bottom: 1rem;
 }
 
+.spell-search {
+    width: 50%;
+    max-width: 500px;
+    padding: 2px;
+}
+
 .spell-table {
     width: 90%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     border-collapse: collapse;
     margin-top: 1rem;

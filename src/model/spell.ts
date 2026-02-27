@@ -3,6 +3,7 @@ export interface Spell {
     name: String;
     level: number;
     castingTime: String;
+    duration: String;
     range: String;
     school: String;
     damageTypes?: String[];

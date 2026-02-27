@@ -1,0 +1,35 @@
+.spellbook-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.spellbook-container h1 {
+    margin-bottom: 1rem;
+}
+
+.spell-table {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-family: sans-serif;
+}
+
+.spell-table th {
+    background-color: #3a2005;
+    border: 2px solid #7a4504;
+    padding: 8px;
+    text-align: center;
+}
+
+.spell-table td {
+    border: 1px solid #7a4504;
+    padding: 8px;
+}
+
+.spell-table tr:hover {
+    background-color: rgb(74, 84, 93);
+}

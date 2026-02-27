@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchSpells } from './spellService';
 import type { Spell } from './model/spell';
+import './style/spellTable.css'
 
 function App() {
 
@@ -28,10 +29,10 @@ function App() {
   if(error) return <p>Error occured: {error}</p>
 
   return (
-    <div>
+    <div className='spellbook-container'>
       <h1>Spellbook</h1>
 
-      <table>
+      <table className='spell-table'>
         <thead>
           <tr>
             <th>Spell Name</th>

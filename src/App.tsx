@@ -24,7 +24,8 @@ function App() {
   
   }, []);
 
-
+  if(loading) return <p>Loading spells..</p>
+  if(error) return <p>Error occured: {error}</p>
 
   return (
     <div>

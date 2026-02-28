@@ -9,12 +9,42 @@
     margin-bottom: 1rem;
 }
 
+.spell-filter-box {
+    width: 90%;
+    max-width: 750px;
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 25px;
+    margin-bottom: 1rem;
+}
 .spell-search {
-    width: 50%;
     max-width: 500px;
+}
+.spell-search input {
+    width: 400px;
     padding: 2px;
 }
-
+.level-filter {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.known-filter {
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
+.prepared-filter {
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
 .spell-table {
     width: 90%;
     max-width: 1000px;

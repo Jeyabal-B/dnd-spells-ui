@@ -7,6 +7,9 @@ function App() {
 
   const [spells, setSpells] = useState<Spell[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [levelFilter, setLevelFilter] = useState<number[]>([]);
+  const [knownFilter, setKnownFilter] = useState(false);
+  const [preparedFilter, setPreparedFilter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<String | null>(null);
 
@@ -28,30 +31,99 @@ function App() {
   if(loading) return <p>Loading spells..</p>
   if(error) return <p>Error occured: {error}</p>
 
-  const filteredSpells = spells.filter((spell) => {
-    const term = searchTerm.toLowerCase();
-    return (
-      spell.name.toLowerCase().includes(term) || 
-      spell.level.toString().toLowerCase().includes(term) || 
-      spell.castingTime.toLowerCase().includes(term) || 
-      spell.range.toLowerCase().includes(term) ||
-      spell.school.toLowerCase().includes(term) || 
-      spell.duration.toLowerCase().includes(term) || 
-      spell.source.toLowerCase().includes(term) 
-    );
+  const filteredSpells = spells
+    .filter((spell) => {
+      if(levelFilter.length > 0 && !levelFilter.includes(spell.level)){
+        return false;
+      }
+      if(knownFilter && !spell.known){
+        return false;
+      }
+      if(preparedFilter && !spell.prepared){
+        return false;
+      }
+      return true;
+    }) 
+    .filter((spell) => {
+      const term = searchTerm.toLowerCase();
+      return (
+        spell.name.toLowerCase().includes(term) || 
+        spell.level.toString().toLowerCase().includes(term) || 
+        spell.castingTime.toLowerCase().includes(term) || 
+        spell.range.toLowerCase().includes(term) ||
+        spell.school.toLowerCase().includes(term) || 
+        spell.duration.toLowerCase().includes(term) || 
+        spell.source.toLowerCase().includes(term) 
+      );
   });
+
+  function toggleLevel(level: number) {
+    setLevelFilter(previous => 
+      previous.includes(level) 
+      ? previous.filter(lvl => lvl != level)
+      : [...previous, level]
+    );
+  }
+
+  function toggleKnownOnly() {
+    setKnownFilter(previous => !previous);
+  }
+
+  function togglePreparedOnly() {
+    setPreparedFilter(previous => !previous);
+  }
 
   return (
     <div className='spellbook-container'>
       <h1>Spellbook</h1>
 
-      <input
-        type='text'  
-        placeholder='Type to filter spells'
-        className='spell-search'
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <div className='spell-filter-box'>
+        
+        <div className='spell-search'>
+          <input
+          type='text'  
+          placeholder='Type to filter spells'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        <div className='level-filter'>
+          {[0,1,2,3].map(level => (
+            <label key={level} style={{ marginRight: '10px'}}>
+              <input
+                type='checkbox'
+                checked={levelFilter.includes(level)}
+                onChange={() => toggleLevel(level)}
+              />
+              {level}
+            </label>
+          ))}
+        </div>
+
+        <div className='known-filter'>
+          <label style={{ marginRight: '10px'}}>
+            <input
+              type='checkbox'
+              checked={knownFilter}
+              onChange={toggleKnownOnly}
+            />
+            Known
+          </label>
+        </div>
+
+        <div className='prepared-filter'>
+          <label style={{ marginRight: '10px'}}>
+            <input
+              type='checkbox'
+              checked={preparedFilter}
+              onChange={togglePreparedOnly}
+            />
+            Prepared
+          </label>
+        </div>
+
+      </div>
 
       <table className='spell-table'>
         <thead>
@@ -71,7 +143,7 @@ function App() {
 
         <tbody>
           {filteredSpells.map((spell) => (
-            <tr key={spell.id}>
+            <tr key={`${spell.id}-${spell.name}`}>
               <td>{spell.name}</td>
               <td>{spell.level}</td>
               <td>{spell.school}</td>

@@ -73,6 +73,13 @@ function App() {
     setPreparedFilter(previous => !previous);
   }
 
+  function resetFilters() {
+    setSearchTerm("");
+    setLevelFilter([]);
+    setKnownFilter(false);
+    setPreparedFilter(false);
+  }
+
   return (
     <div className='spellbook-container'>
       <h1>Spellbook</h1>
@@ -121,6 +128,12 @@ function App() {
             />
             Prepared
           </label>
+        </div>
+
+        <div className='reset-filter'>
+          <button onClick={resetFilters}>
+            Reset
+          </button>
         </div>
 
       </div>

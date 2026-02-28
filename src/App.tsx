@@ -78,7 +78,7 @@ function App() {
       <h1>Spellbook</h1>
 
       <div className='spell-filter-box'>
-        
+
         <div className='spell-search'>
           <input
           type='text'  
@@ -151,8 +151,8 @@ function App() {
               <td>{spell.castingTime}</td>
               <td>{spell.range}</td>
               <td>{spell.duration}</td>
-              <td>{spell.known}</td>
-              <td>{spell.prepared}</td>
+              <td>{spell.known ? 'Yes' : 'No'}</td>
+              <td>{spell.prepared ? 'Yes' : 'No'}</td>
               <td>{spell.damageTypes}</td>
             </tr>
           ))}

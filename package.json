@@ -1,8 +1,8 @@
 {
   "name": "dnd-spells-ui",
   "private": true,
-  "version": "1.0.0",
-  "description": "stable release",
+  "version": "1.1.0",
+  "description": "Experimenting with new data format",
   "type": "module",
   "scripts": {
     "dev": "vite",

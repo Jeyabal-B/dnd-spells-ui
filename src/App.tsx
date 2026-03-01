@@ -13,6 +13,15 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<String | null>(null);
 
+  const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
+
+  const toggleRow = (key: string) => {
+  setExpandedRows(prev => ({
+    ...prev,
+    [key]: !prev[key]
+  }));
+  };
+
   useEffect(() => {
     async function loadPage() {
       try{
@@ -144,13 +153,15 @@ function App() {
             <th>Spell Name</th>
             <th>Level</th>
             <th>School</th>
-            <th>Source</th>
+            {/*<th>Source</th>*/}
+            <th>Mechanic</th>
             <th>Casting Time</th>
             <th>Range</th>
             <th>Duration</th>
             <th>Known</th>
             <th>Prepared</th>
             <th>Damage Types</th>
+            <th>Description</th>
           </tr>
         </thead>
 
@@ -160,13 +171,48 @@ function App() {
               <td>{spell.name}</td>
               <td>{spell.level}</td>
               <td>{spell.school}</td>
-              <td>{spell.source}</td>
+              {/*<td>{spell.source}</td>*/}
+              <td>{spell.mechanic}</td>
               <td>{spell.castingTime}</td>
               <td>{spell.range}</td>
               <td>{spell.duration}</td>
               <td>{spell.known ? 'Yes' : 'No'}</td>
               <td>{spell.prepared ? 'Yes' : 'No'}</td>
               <td>{spell.damageTypes}</td>
+              <td>
+                <div className='spell-description'>
+
+                  <div
+                    className={
+                      expandedRows[`${spell.id}-${spell.name}`]
+                        ? "spell-description expanded"
+                        : "spell-description collapsed"
+                    }
+                  >
+                    {expandedRows[`${spell.id}-${spell.name}`]
+                      ? spell.description
+                      : spell.description.slice(0, 80) +
+                      (spell.description.length > 80 ? "..." : "")}
+                  </div>
+
+                  {spell.description.length > 80 && (
+                    <button
+                      onClick={() => toggleRow(`${spell.id}-${spell.name}`)}
+                      style={{
+                        marginLeft: "8px",
+                        background: "none",
+                        border: "none",
+                        color: "blue",
+                        cursor: "pointer",
+                        textDecoration: "underline"
+                      }}
+                    >
+                      {expandedRows[`${spell.id}-${spell.name}`] ? "Show less" : "Show more"}
+                    </button>
+                  )}
+                </div>
+              </td>
+
             </tr>
           ))}
 

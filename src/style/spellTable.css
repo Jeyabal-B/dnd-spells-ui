@@ -76,3 +76,17 @@
 .spell-table tr:hover {
     background-color: rgb(74, 84, 93);
 }
+
+.spell-description {
+  overflow: hidden;
+  white-space: pre-line;
+  transition: max-height 0.3s ease;
+}
+
+.spell-description.collapsed {
+  max-height: 60px; /* change this to whatever height you want */
+}
+
+.spell-description.expanded {
+  max-height: 2000px; /* large enough to show full text */
+}
